@@ -65,10 +65,13 @@ class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                'assets/puzzlesliderimg1.jpg', // Placeholder for knock animation
-                height: 150,
+              // Instead of the image, use an icon
+              Icon(
+                Icons.lock, // This can be changed to any other relevant icon
+                size: 150,
+                color: Color(0xFF2622E6), // Match the theme color
               ),
+
               SizedBox(height: 20),
               Text(
                 "What is Knock Code?",

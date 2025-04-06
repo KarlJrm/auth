@@ -66,10 +66,12 @@ class _PuzzleDescriptionScreenState extends State<PuzzleDescriptionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                'assets/puzzlesliderimg1.jpg', // Replace with your puzzle image asset
-                height: 150,
+              Icon(
+                Icons.image,
+                size: 150,
+                color: Color(0xFF2622E6),
               ),
+
               SizedBox(height: 20),
               Text(
                 "What is an OTP Puzzle Captcha Slider?",
