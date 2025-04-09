@@ -8,7 +8,7 @@ class KnockDescriptionScreen extends StatefulWidget {
 }
 
 class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
-  int _secondsLeft = 20;
+  int _secondsLeft = 70;
   late Timer _timer;
 
   @override
@@ -45,15 +45,16 @@ class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFFFFFF),
       appBar: AppBar(
         title: Text(
           "Knock Code Description",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontFamily: 'Poppins'),
         ),
-        backgroundColor: Color(0xFF2622E6),
+        backgroundColor: Color(0xFFFFFFFF),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white), // Change the color here
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -65,13 +66,11 @@ class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // Instead of the image, use an icon
               Icon(
-                Icons.lock, // This can be changed to any other relevant icon
+                Icons.lock,
                 size: 150,
-                color: Color(0xFF2622E6), // Match the theme color
+                color: Color(0xFF2622E6),
               ),
-
               SizedBox(height: 20),
               Text(
                 "What is Knock Code?",
@@ -79,6 +78,7 @@ class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF2622E6),
+                  fontFamily: 'Poppins',
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -89,77 +89,97 @@ class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[700],
+                  fontFamily: 'Poppins',
                 ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 24),
 
-              // Pros and Cons Table-style layout
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black12),
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey[100],
-                ),
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Pros and Cons",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("✔️ Fast & intuitive"),
-                              Text("✔️ Can be discreet"),
-                              Text("✔️ Doesn't require looking at screen"),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("❌ Limited pattern options"),
-                              Text("❌ Can be guessed if observed"),
-                              Text("❌ Not widely supported"),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+              // Pros and Cons Section using Table Layout
+              Text(
+                "Pros and Cons",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Color(0xFF2622E6),
+                  fontFamily: 'Poppins',
                 ),
               ),
+              SizedBox(height: 16),
+
+              Table(
+                border: TableBorder.symmetric(inside: BorderSide(color: Colors.grey, width: 0.5)),
+                columnWidths: {
+                  0: FlexColumnWidth(1),
+                  1: FlexColumnWidth(1),
+                },
+                children: [
+                  // Header Row
+                  TableRow(
+                    children: [
+                      _buildTableCell("Pros", isHeader: true),
+                      _buildTableCell("Cons", isHeader: true),
+                    ],
+                  ),
+                  // First Row (Pros and Cons)
+                  TableRow(
+                    children: [
+                      _buildTableCell("✔️ Fast & intuitive"),
+                      _buildTableCell("❌ Limited pattern options"),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      _buildTableCell("✔️ Can be discreet"),
+                      _buildTableCell("❌ Can be guessed if observed"),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      _buildTableCell("✔️ Doesn't require looking at screen"),
+                      _buildTableCell("❌ Not widely supported"),
+                    ],
+                  ),
+                ],
+              ),
+
               SizedBox(height: 24),
 
+              // Countdown Text
               Text(
                 "Returning to the main screen in $_secondsLeft seconds...",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[700],
+                  fontFamily: 'Poppins',
                 ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 40),
 
+              // Exit Button
               _buildStyledButton("Exit", _navigateToMain),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Helper to build each table cell with left alignment
+  Widget _buildTableCell(String text, {bool isHeader = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: isHeader ? 18 : 16,
+          fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+          color: Colors.grey[700],
+          fontFamily: 'Poppins',
+        ),
+        textAlign: TextAlign.left,
       ),
     );
   }
@@ -172,11 +192,11 @@ class _KnockDescriptionScreenState extends State<KnockDescriptionScreen> {
         side: BorderSide(color: Colors.black, width: 2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
       ),
       child: Text(
         text,
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: Colors.black, fontFamily: 'Poppins'),
       ),
     );
   }

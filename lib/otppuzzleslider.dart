@@ -30,7 +30,6 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
     "assets/puzzlesliderimg9.jpg",
     "assets/PUZZ.jpg",
     "assets/p1.jpg",
-    "assets/p2.jpg",
     "assets/p3.jpg",
     "assets/p4.jpg",
     "assets/p5.jpg",
@@ -96,13 +95,13 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
         textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       child: icon == null
-          ? Text(text, style: TextStyle(color: Colors.black))
+          ? Text(text, style: TextStyle(color: Colors.black, fontFamily: 'Poppins'))
           : Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, color: Colors.black),
           SizedBox(width: 5),
-          Text(text, style: TextStyle(color: Colors.black)),
+          Text(text, style: TextStyle(color: Colors.black, fontFamily: 'Poppins')),
         ],
       ),
     );
@@ -111,22 +110,24 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFFFFFF),
       appBar: AppBar(
         title: Text(
           "Puzzle Slider Login",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.black,
+            fontFamily: 'Poppins',
           ),
         ),
-        backgroundColor: Color(0xFF2622E6),
+        backgroundColor: Colors.white,
         centerTitle: true,
-        elevation: 4.0,
-        shadowColor: Colors.black.withOpacity(0.3),
+        elevation: 0,
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: Colors.black,
         ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -139,10 +140,10 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withAlpha(77),
                     blurRadius: 8,
                     spreadRadius: 2,
-                  )
+                  ),
                 ],
               ),
               padding: EdgeInsets.all(12),
@@ -157,7 +158,11 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
                       image: _selectedImage != null
                           ? Image.file(_selectedImage!, fit: BoxFit.cover)
                           : Image.asset(_currentImage, fit: BoxFit.cover),
-                      titleStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                      titleStyle: TextStyle(
+                        fontFamily: 'Poppins', // Poppins font applied here
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                       onConfirm: (value) async {
                         setState(() {
                           _isVerified = value;
@@ -165,18 +170,17 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
                         if (value) {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => WelcomePage()),  // Navigate to WelcomePage
+                            MaterialPageRoute(builder: (context) => WelcomePage()),
                           );
                         }
                         return Future.value();
                       },
-
                     ),
                   ),
                   if (_isLoading)
                     Positioned.fill(
                       child: Container(
-                        color: Colors.white.withOpacity(0.6),
+                        color: Colors.white.withAlpha(50),
                         child: Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -187,23 +191,31 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
             ),
             SizedBox(height: 20),
             if (!_isVerified)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _buildStyledButton("Select Image", _pickImage),
-                  SizedBox(width: 10),
-                  _buildStyledButton("Capture Image", _captureImage),
-                  SizedBox(width: 10),
-                  _buildStyledButton("", _refreshPuzzle, icon: Icons.refresh),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildStyledButton("Select Image", _pickImage),
+                      SizedBox(width: 10),
+                      _buildStyledButton("Capture Image", _captureImage),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  _buildStyledButton("Refresh", _refreshPuzzle, icon: Icons.refresh),
                 ],
               ),
+
+
+
             if (_isVerified) ...[
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => WelcomePage()),  // Navigate to WelcomePage
+                    MaterialPageRoute(builder: (context) => WelcomePage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -213,7 +225,7 @@ class _OTPPuzzleSliderScreenState extends State<OTPPuzzleSliderScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                   textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-                child: Text("Continue", style: TextStyle(color: Colors.white)),
+                child: Text("Continue", style: TextStyle(color: Colors.white, fontFamily: 'Poppins')),
               ),
             ],
           ],

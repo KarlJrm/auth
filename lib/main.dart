@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentication Showcase',
       theme: ThemeData(
+        fontFamily: 'Poppins',
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
@@ -71,32 +72,39 @@ class LoginShowcase extends StatelessWidget {
                 const Text(
                   'Login Authentication\nShowcase',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 40,
+                    fontWeight: FontWeight.w900,
                     color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
                     letterSpacing: 1.2,
                   ),
                   textAlign: TextAlign.center,
                 ),
+
                 const SizedBox(height: 16),
 
                 // Description
                 Text(
-                  'Showcasing OTP-Based Puzzle Slider & Knock Code Authentication for Secure Login.',
+                  'Showcasing Captcha Slider Puzzle & Knock Code Authentication for "Secure Login"',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w300,
                     fontSize: 16,
+                    color: Colors.white.withAlpha(230),
+
                   ),
                   textAlign: TextAlign.center,
                 ),
+
+
                 const SizedBox(height: 60),
 
-                // OTP Login Button
+
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamed(context, '/otp'),
                   style: _buttonStyle(),
                   child: const Text(
-                    'OTP-Based One-Time Login',
+                    'Captcha Puzzle Slider',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
@@ -117,7 +125,7 @@ class LoginShowcase extends StatelessWidget {
                 Text(
                   'Members:\nGarin, Karl Jerom E.\nLaguisma, Jvaln L.\nMallonao, Kristine Joy C.',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withAlpha(230),
                     fontSize: 14,
                   ),
                   textAlign: TextAlign.center,

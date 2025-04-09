@@ -169,7 +169,31 @@ class _KnockCodeScreenState extends State<KnockCodeScreen> {
         textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       child: icon == null
-          ? Text(text, style: TextStyle(color: Colors.black))
+          ? Stack(
+        children: [
+          // Shadow/Stroke text
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 2
+                ..color = Colors.black,
+            ),
+          ),
+          // Solid text
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      )
           : Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -184,13 +208,14 @@ class _KnockCodeScreenState extends State<KnockCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Knock Code Login", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Color(0xFF2622E6),
+        title: Text("Knock Code Login", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 4.0,
-        shadowColor: Colors.black.withOpacity(0.3),
-        iconTheme: IconThemeData(color: Colors.white),
+        shadowColor: Colors.black.withAlpha(77),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -203,7 +228,7 @@ class _KnockCodeScreenState extends State<KnockCodeScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 8, spreadRadius: 2)],
+                boxShadow: [BoxShadow(color: Colors.grey.withAlpha(77), blurRadius: 8, spreadRadius: 2)],
               ),
               padding: EdgeInsets.all(12),
               child: Row(
@@ -243,13 +268,13 @@ class _KnockCodeScreenState extends State<KnockCodeScreen> {
                     () => _onKnock(index + 1),
               ),
             ),
-            // Visibility widget to prevent layout disruption
             Visibility(
               visible: (!_isVerifying && _inputPattern.length >= 2) ||
                   (_isVerifying && _userPattern.length == _inputPattern.length),
               child: Padding(
                 padding: const EdgeInsets.only(top: 12.0),
-                child: _buildStyledButton("Confirm Knock Code", _confirmKnock, buttonColor: Colors.lightBlue.shade100),
+                child: _buildStyledButton("Confirm Knock Code", _confirmKnock, buttonColor: Color(
+                    0xFFFFFFFF)),
               ),
             ),
             SizedBox(height: 20),
@@ -262,7 +287,8 @@ class _KnockCodeScreenState extends State<KnockCodeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (_isVerifying) _buildStyledButton("Reset", _resetPattern, icon: Icons.refresh, buttonColor: Colors.white),
+                if (_isVerifying)
+                  _buildStyledButton("Reset", _resetPattern, icon: Icons.refresh, buttonColor: Colors.white),
                 SizedBox(width: 10),
                 _buildStyledButton("", _backspace, icon: Icons.backspace, buttonColor: Colors.white),
               ],
